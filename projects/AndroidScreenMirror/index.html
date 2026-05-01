@@ -19,76 +19,101 @@
             <div class="doc-meta">
                 <span>📁 Android</span>
                 <span>📱 投屏</span>
-                <span>🔧 维护中</span>
+                <span>🔧 开发中</span>
+                <span>⚡ 低延迟</span>
             </div>
             <div class="doc-preview" style="margin-top: 0.5rem;">
-                安卓屏幕镜像项目，支持WiFi P2P/TCP/UDP，实现手机到Pad的实时投屏和触摸反控功能。
+                安卓超低延时投屏 SDK（<50ms），WiFi P2P 直连，SDK + App 双模块架构。
             </div>
         </div>
-        
-        <h3 style="margin: 1rem 0;">📂 核心文件结构</h3>
+
+        <h3 style="margin: 1rem 0;">📦 SDK 模块结构（screenshare-sdk）</h3>
         <div class="doc-card">
             <pre style="font-size: 0.7rem; overflow-x: auto; white-space: pre-wrap; word-break: break-all;">
-app/src/main/java/com/example/screenmirror/
-├── MainActivity.java          # 主界面，选择设备角色
-├── SenderActivity.java        # 发送端（采集+编码+传输）
-├── ReceiverActivity.java      # 接收端（接收+解码+渲染）
-├── ScreenCaptureService.java  # 屏幕录制服务
-├── WifiP2pService.java      # WiFi P2P服务
-├── NetworkService.java       # 网络传输服务
-├── Constants.java            # 常量定义
-├── RtpPacketizer.java        # RTP打包器
-├── LowLatencyNetwork.java    # 低延迟网络传输核心
-└── TouchEventSerializer.java # 触摸事件序列化
+screenshare-sdk/src/main/java/com/screenshare/sdk/
+├── ScreenshareSDK.java         # SDK 唯一入口类
+├── Sender.java                # 发送端（状态机）
+├── Receiver.java              # 接收端（状态机）
+├── SenderConfig.java          # 发送端配置
+├── ReceiverConfig.java        # 接收端配置
+├── Common/
+│   ├── AtomicBuffer.java      # 原子化预分配缓冲区（GC优化）
+│   ├── ErrorCode.java         # 错误码体系（1xxx-5xxx）
+│   ├── SenderState.java        # 发送端状态机
+│   └── ReceiverState.java      # 接收端状态机
+├── capture/
+│   └── ScreenCapturer.java    # 屏幕采集（MediaProjection）
+├── codec/
+│   ├── VideoEncoder.java      # 硬件 H.264/H.265 编码
+│   ├── VideoDecoder.java      # 硬件 H.264/H.265 解码
+│   └── AudioDecoder.java      # 音频解码（占位符）
+├── network/
+│   ├── UdpChannel.java        # UDP 通道
+│   └── RtpSession.java        # RTP 打包/解包
+├── service/
+│   └── ScreenCaptureService.java  # 前台服务
+├── touch/
+│   ├── TouchEncoder.java      # 触摸编码（独立通道）
+│   ├── TouchDecoder.java      # 触摸解码
+│   └── TouchInjectorService.java  # AccessibilityService 注入
+└── wifi/
+    ├── P2pConnectionManager.java   # WiFi P2P 管理
+    └── P2pBroadcastReceiver.java   # P2P 广播接收
             </pre>
         </div>
-        
-        <h3 style="margin: 1rem 0;">⚙️ 核心技术</h3>
+
+        <h3 style="margin: 1rem 0;">🎯 核心技术指标</h3>
         <div class="doc-list">
             <div class="doc-card">
-                <h3>🎯 屏幕采集</h3>
-                <div class="doc-preview">MediaProjection API + VirtualDisplay</div>
+                <h3>⚡ 延迟目标</h3>
+                <div class="doc-preview">
+                    视频延迟 &lt;50ms | 触摸延迟 &lt;10ms
+                </div>
             </div>
             <div class="doc-card">
-                <h3>🎬 视频编码</h3>
-                <div class="doc-preview">MediaCodec H.264硬编码，低延迟优化</div>
+                <h3>🔧 性能优化</h3>
+                <div class="doc-preview">
+                    原子缓冲区消除 GC | 独立触摸通道 | RTP FU-A 分片
+                </div>
             </div>
             <div class="doc-card">
-                <h3>🌐 网络传输</h3>
-                <div class="doc-preview">TCP/UDP/WiFi P2P 三种模式，支持优先级队列</div>
+                <h3>📡 连接模式</h3>
+                <div class="doc-preview">
+                    WiFi P2P 直连 → WiFi 局域网 TCP 降级
+                </div>
             </div>
             <div class="doc-card">
-                <h3>👆 触摸反控</h3>
-                <div class="doc-preview">TouchEventSerializer 紧凑二进制协议</div>
+                <h3>🎬 编码</h3>
+                <div class="doc-preview">
+                    H.264/H.265 硬件编码（MediaCodec）+ KEY_LATENCY=0
+                </div>
             </div>
         </div>
-        
-        <h3 style="margin: 1rem 0;">📖 详细文档</h3>
-        <div class="doc-card markdown-body">
-            <h2>功能特性</h2>
-            <ol>
-                <li><strong>屏幕采集</strong>：使用MediaProjection API捕获屏幕内容</li>
-                <li><strong>视频编码</strong>：使用MediaCodec进行H.264硬编码</li>
-                <li><strong>网络传输</strong>：支持TCP和UDP协议传输视频流</li>
-                <li><strong>解码渲染</strong>：接收端解码并显示视频流</li>
-                <li><strong>触摸反控</strong>：Pad端触摸控制手机端操作</li>
-                <li><strong>双连接模式</strong>：WiFi P2P直连和局域网连接</li>
-            </ol>
-            
-            <h2>低延迟优化</h2>
-            <ul>
-                <li>优先级队列：触摸事件 > 关键帧 > 普通帧</li>
-                <li>RTP打包：单包/FU-A分片模式</li>
-                <li>前向纠错(FEC)：20%冗余抗丢包</li>
-                <li>Android Q+ 低延迟编码模式 (KEY_LATENCY)</li>
-            </ul>
-            
-            <h2>编译要求</h2>
-            <ul>
-                <li>Android Studio 2022.3.1+</li>
-                <li>Android SDK 33+</li>
-                <li>Java 8+</li>
-                <li>两台Android 5.0+ 设备</li>
+
+        <h3 style="margin: 1rem 0;">📈 开发进度</h3>
+        <div class="doc-card">
+            <div style="margin-bottom: 0.5rem;">
+                <span style="color: #2ecc71;">✅ Week 1: 项目骨架</span>
+            </div>
+            <div style="margin-bottom: 0.5rem;">
+                <span>Day 1</span>: Gradle Wrapper + SDK/App 双模块 + 核心类 ✅
+            </div>
+            <div style="margin-bottom: 0.5rem;">
+                <span>Day 2</span>: WiFi P2P + TouchInjector + ScreenCaptureService ✅
+            </div>
+            <div>
+                <span style="color: #95a5a6;">Day 3-5</span>: 实现细节打磨
+            </div>
+        </div>
+
+        <h3 style="margin: 1rem 0;">📂 编译要求</h3>
+        <div class="doc-card">
+            <ul style="font-size: 0.9rem; line-height: 1.8;">
+                <li><strong>AGP</strong>: 8.2.0</li>
+                <li><strong>Gradle</strong>: 8.5</li>
+                <li><strong>minSdk</strong>: 26（Android 8.0）</li>
+                <li><strong>targetSdk</strong>: 34</li>
+                <li><strong>compileSdk</strong>: 34</li>
             </ul>
         </div>
     </main>
