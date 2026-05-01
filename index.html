@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>小 - 文档中心</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <header class="mobile-header">
@@ -13,6 +14,13 @@
     </header>
     
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- 更新提示条 -->
+    <div class="update-toast" id="updateToast">
+        <span>🆕 发现新版本</span>
+        <button onclick="refreshPage()">立即刷新</button>
+        <button onclick="dismissUpdate()">稍后</button>
+    </div>
     
     <div class="mobile-container">
         <aside class="sidebar" id="sidebar">
@@ -98,7 +106,10 @@
             month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'
         });
 
-        // 搜索处理 - 复用 app.js 的 filterDocs 逻辑
+        // 服务版本号（每次发布后自动更新）
+        const SITE_VERSION = Date.now();
+
+        // 搜索处理
         function handleSearch(query) {
             const q = query.toLowerCase().trim();
             const cards = document.querySelectorAll('.doc-card');
@@ -110,6 +121,52 @@
             });
             document.getElementById('docCount').textContent = `${count} 个文档`;
         }
+
+        // 自动更新检测
+        let updateShown = false;
+
+        function checkForUpdates() {
+            if (updateShown) return;
+            
+            // 检测版本文件变化
+            fetch('./version.json?t=' + Date.now())
+                .then(r => r.json())
+                .then(data => {
+                    const lastVersion = localStorage.getItem('siteVersion');
+                    if (lastVersion && lastVersion != data.version) {
+                        showUpdateToast();
+                    }
+                    localStorage.setItem('siteVersion', data.version);
+                })
+                .catch(() => {});
+        }
+
+        function showUpdateToast() {
+            updateShown = true;
+            document.getElementById('updateToast').classList.add('show');
+        }
+
+        function refreshPage() {
+            localStorage.setItem('siteVersion', 'refresh');
+            window.location.reload(true);
+        }
+
+        function dismissUpdate() {
+            document.getElementById('updateToast').classList.remove('show');
+        }
+
+        // 页面可见性变化时检测更新（切回来时自动刷新）
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                checkForUpdates();
+            }
+        });
+
+        // 每30秒检查一次
+        setInterval(checkForUpdates, 30000);
+
+        // 首次加载检查
+        setTimeout(checkForUpdates, 2000);
     </script>
 </body>
 </html>
