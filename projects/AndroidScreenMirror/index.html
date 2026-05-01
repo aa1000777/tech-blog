@@ -3,19 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AndroidScreenMirror - 小</title>
+    <title>AndroidScreenMirror - 项目文档</title>
     <link rel="stylesheet" href="../../style.css">
+    <style>
+        .doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+        .doc-item { background: var(--card-bg, #fff); border-radius: 8px; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .doc-item h3 { margin: 0 0 0.5rem; color: var(--primary, #007bff); }
+        .doc-item a { text-decoration: none; color: inherit; }
+        .doc-item .doc-meta { font-size: 0.85rem; color: #666; margin-bottom: 0.5rem; }
+        .doc-item .doc-size { font-size: 0.75rem; color: #999; }
+        .doc-item .doc-desc { font-size: 0.9rem; margin-top: 0.5rem; }
+    </style>
 </head>
 <body>
     <header class="mobile-header">
-        <a href="../" class="back-btn" style="color: var(--text); text-decoration: none; font-size: 1.5rem;">←</a>
+        <a href="../../" class="back-btn" style="color: var(--text); text-decoration: none; font-size: 1.5rem;">←</a>
         <div class="logo">📱 AndroidScreenMirror</div>
         <div style="width: 40px;"></div>
     </header>
     
     <main class="content" style="padding-top: 70px;">
         <div class="doc-card" style="margin-bottom: 1rem; border-left: 3px solid #2ecc71;">
-            <h3>📋 项目信息</h3>
+            <h3>📋 项目概览</h3>
             <div class="doc-meta">
                 <span>📁 Android</span>
                 <span>📱 投屏</span>
@@ -27,7 +36,74 @@
             </div>
         </div>
 
-        <h3 style="margin: 1rem 0;">📦 SDK 模块结构（screenshare-sdk）</h3>
+        <h3 style="margin: 1rem 0;">📄 项目文档</h3>
+        <div class="doc-grid">
+            <div class="doc-item">
+                <a href="README.md">
+                    <h3>📖 README.md</h3>
+                    <div class="doc-meta">项目说明 | 架构 | API 概览</div>
+                    <div class="doc-desc">项目概述、功能特性、编译说明、使用示例</div>
+                </a>
+            </div>
+            <div class="doc-item">
+                <a href="PLAN.md">
+                    <h3>📅 PLAN.md</h3>
+                    <div class="doc-meta">策划文档 | 项目计划</div>
+                    <div class="doc-desc">项目背景、技术方案、开发阶段、风险分析</div>
+                </a>
+            </div>
+            <div class="doc-item">
+                <a href="PRD.md">
+                    <h3>📋 PRD.md</h3>
+                    <div class="doc-meta">产品需求 | 功能规划</div>
+                    <div class="doc-desc">产品概述、功能需求、性能指标、竞品分析</div>
+                </a>
+            </div>
+            <div class="doc-item">
+                <a href="DESIGN.md">
+                    <h3>🎨 DESIGN.md</h3>
+                    <div class="doc-meta">技术设计 | 架构设计</div>
+                    <div class="doc-desc">系统架构、核心模块、数据流、接口设计、性能优化</div>
+                </a>
+            </div>
+            <div class="doc-item">
+                <a href="TEST_CASE.md">
+                    <h3>🧪 TEST_CASE.md</h3>
+                    <div class="doc-meta">测试用例 | 质量保证</div>
+                    <div class="doc-desc">单元测试、集成测试、性能测试、压力测试、兼容性测试</div>
+                </a>
+            </div>
+            <div class="doc-item">
+                <a href="API.md">
+                    <h3>📡 API.md</h3>
+                    <div class="doc-meta">SDK API | 接口文档</div>
+                    <div class="doc-desc">ScreenshareSDK、Sender、Receiver、Config、错误码</div>
+                </a>
+            </div>
+            <div class="doc-item">
+                <a href="DEVELOPER.md">
+                    <h3>🔧 DEVELOPER.md</h3>
+                    <div class="doc-meta">开发维护 | 内部文档</div>
+                    <div class="doc-desc">Git 工作流、组件说明、测试策略、已知问题</div>
+                </a>
+            </div>
+            <div class="doc-item">
+                <a href="PROJECT_REPORT.md">
+                    <h3>📊 PROJECT_REPORT.md</h3>
+                    <div class="doc-meta">进度报告 | 用户汇报</div>
+                    <div class="doc-desc">项目状态、代码统计、技术指标、下一步</div>
+                </a>
+            </div>
+            <div class="doc-item">
+                <a href="BUILD.md">
+                    <h3>🏗️ BUILD.md</h3>
+                    <div class="doc-meta">构建说明 | 编译指南</div>
+                    <div class="doc-desc">环境要求、编译步骤、构建配置</div>
+                </a>
+            </div>
+        </div>
+
+        <h3 style="margin: 1.5rem 0 1rem;">📦 SDK 模块结构</h3>
         <div class="doc-card">
             <pre style="font-size: 0.7rem; overflow-x: auto; white-space: pre-wrap; word-break: break-all;">
 screenshare-sdk/src/main/java/com/screenshare/sdk/
@@ -39,30 +115,41 @@ screenshare-sdk/src/main/java/com/screenshare/sdk/
 ├── Common/
 │   ├── AtomicBuffer.java      # 原子化预分配缓冲区（GC优化）
 │   ├── ErrorCode.java         # 错误码体系（1xxx-5xxx）
-│   ├── SenderState.java        # 发送端状态机
-│   └── ReceiverState.java      # 接收端状态机
+│   ├── SenderState.java       # 发送端状态机
+│   ├── ReceiverState.java     # 接收端状态机
+│   ├── BandwidthAdapter.java  # 带宽自适应
+│   ├── ConnectionStateMachine.java
+│   ├── HeartbeatMonitor.java  # 心跳监控
+│   ├── LatencyTester.java     # 延迟测试
+│   └── ReconnectionManager.java # 重连管理
 ├── capture/
 │   └── ScreenCapturer.java    # 屏幕采集（MediaProjection）
 ├── codec/
 │   ├── VideoEncoder.java      # 硬件 H.264/H.265 编码
 │   ├── VideoDecoder.java      # 硬件 H.264/H.265 解码
-│   └── AudioDecoder.java      # 音频解码（占位符）
+│   ├── VideoDecoderIntegrator.java
+│   ├── AudioCapture.java      # 音频采集
+│   ├── AudioEncoder.java      # 音频编码
+│   ├── AudioDecoder.java      # 音频解码
+│   └── AudioPlayer.java       # 音频播放
 ├── network/
 │   ├── UdpChannel.java        # UDP 通道
-│   └── RtpSession.java        # RTP 打包/解包
+│   └── RtpSession.java        # RTP 打包/解包（FU-A 分片）
 ├── service/
-│   └── ScreenCaptureService.java  # 前台服务
+│   ├── ScreenCaptureService.java  # 前台服务
+│   └── ScreenMirroringService.java
 ├── touch/
 │   ├── TouchEncoder.java      # 触摸编码（独立通道）
 │   ├── TouchDecoder.java      # 触摸解码
 │   └── TouchInjectorService.java  # AccessibilityService 注入
 └── wifi/
     ├── P2pConnectionManager.java   # WiFi P2P 管理
-    └── P2pBroadcastReceiver.java   # P2P 广播接收
+    ├── P2pBroadcastReceiver.java  # P2P 广播接收
+    └── ServiceDiscovery.java       # 服务发现协议
             </pre>
         </div>
 
-        <h3 style="margin: 1rem 0;">🎯 核心技术指标</h3>
+        <h3 style="margin: 1.5rem 0 1rem;">🎯 核心技术指标</h3>
         <div class="doc-list">
             <div class="doc-card">
                 <h3>⚡ 延迟目标</h3>
@@ -79,42 +166,13 @@ screenshare-sdk/src/main/java/com/screenshare/sdk/
             <div class="doc-card">
                 <h3>📡 连接模式</h3>
                 <div class="doc-preview">
-                    WiFi P2P 直连 → WiFi 局域网 TCP 降级
-                </div>
-            </div>
-            <div class="doc-card">
-                <h3>🎬 编码</h3>
-                <div class="doc-preview">
-                    H.264/H.265 硬件编码（MediaCodec）+ KEY_LATENCY=0
+                    WiFi P2P 直连 | 触摸端口 8889 | 视频端口 8888
                 </div>
             </div>
         </div>
 
-        <h3 style="margin: 1rem 0;">📈 开发进度</h3>
-        <div class="doc-card">
-            <div style="margin-bottom: 0.5rem;">
-                <span style="color: #2ecc71;">✅ Week 1: 项目骨架</span>
-            </div>
-            <div style="margin-bottom: 0.5rem;">
-                <span>Day 1</span>: Gradle Wrapper + SDK/App 双模块 + 核心类 ✅
-            </div>
-            <div style="margin-bottom: 0.5rem;">
-                <span>Day 2</span>: WiFi P2P + TouchInjector + ScreenCaptureService ✅
-            </div>
-            <div>
-                <span style="color: #95a5a6;">Day 3-5</span>: 实现细节打磨
-            </div>
-        </div>
-
-        <h3 style="margin: 1rem 0;">📂 编译要求</h3>
-        <div class="doc-card">
-            <ul style="font-size: 0.9rem; line-height: 1.8;">
-                <li><strong>AGP</strong>: 8.2.0</li>
-                <li><strong>Gradle</strong>: 8.5</li>
-                <li><strong>minSdk</strong>: 26（Android 8.0）</li>
-                <li><strong>targetSdk</strong>: 34</li>
-                <li><strong>compileSdk</strong>: 34</li>
-            </ul>
+        <div style="text-align: center; margin: 2rem 0; color: #999; font-size: 0.85rem;">
+            📂 最后更新: ''' + '$(date "+%Y-%m-%d %H:%M:%S")' + '''
         </div>
     </main>
 </body>
