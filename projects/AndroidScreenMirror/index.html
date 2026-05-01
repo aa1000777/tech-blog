@@ -304,6 +304,7 @@
         // 文档列表数据
         const docFiles = [
             { name: 'README.md', title: '📖 README.md', meta: '项目说明 | 架构 | API 概览', desc: '项目概述、功能特性、编译说明、使用示例', size: '9KB' },
+            { name: 'APK', title: '📥 Android App', meta: '安卓 App | 3.1MB', desc: '点击下载 Android 客户端，安装后可直接浏览本文档中心', size: '3.1MB', isAPK: true },
             { name: 'PLAN.md', title: '📅 PLAN.md', meta: '策划文档 | 项目计划', desc: '项目背景、技术方案、开发阶段、风险分析', size: '8KB' },
             { name: 'PRD.md', title: '📋 PRD.md', meta: '产品需求 | 功能规划', desc: '产品概述、功能需求、性能指标、竞品分析', size: '21KB' },
             { name: 'DESIGN.md', title: '🎨 DESIGN.md', meta: '技术设计 | 架构设计', desc: '系统架构、核心模块、数据流、接口设计、性能优化', size: '27KB' },
@@ -315,16 +316,22 @@
         ];
 
         // 渲染文档列表
-        const icons = ['📖', '📅', '📋', '🎨', '🧪', '📡', '🔧', '📊', '🏗️'];
+        const icons = ['📖', '📥', '📅', '📋', '🎨', '🧪', '📡', '🔧', '📊', '🏗️'];
         const docListEl = document.getElementById('docList');
         docListEl.innerHTML = docFiles.map((doc, i) => `
-            <div class="doc-card" onclick="openDoc('${doc.name}')">
+            <div class="doc-card" onclick="${doc.isAPK ? 'downloadAPK()' : "openDoc('" + doc.name + "')"}">
                 <h3>${icons[i]} ${doc.title.replace(/^.{2}/, '')}</h3>
                 <div class="doc-meta">${doc.meta}</div>
                 <div class="doc-desc">${doc.desc}</div>
                 <div class="doc-size">📄 ${doc.size}</div>
             </div>
         `).join('');
+
+        // 下载 APK
+        function downloadAPK() {
+            const apkUrl = 'https://github.com/aa1000777/tech-blog-app/raw/master/app/build/outputs/apk/debug/app-debug.apk';
+            window.location.href = apkUrl;
+        }
 
         // 打开文档
         async function openDoc(filename) {
