@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>小 - 文档中心</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="mobile-header">
+        <div class="logo">📂 小</div>
+        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    </header>
+    
+    <div class="mobile-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3>📁 文档分类</h3>
+                <button class="close-btn" onclick="toggleSidebar()">×</button>
+            </div>
+            <ul class="category-list">
+                <li class="category-item active" data-category="all" onclick="showCategory('all')">📋 全部文档</li>
+                <li class="category-item" data-category="core" onclick="showCategory('core')">⚙️ 核心配置</li>
+                <li class="category-item" data-category="memory" onclick="showCategory('memory')">🧠 记忆档案</li>
+                <li class="category-item" data-category="project" onclick="showCategory('project')">📱 项目文档</li>
+            </ul>
+            <div class="sidebar-divider"></div>
+            <ul class="recent-list">
+                <li class="sidebar-title">🕐 最近访问</li>
+            </ul>
+        </aside>
+        
+        <main class="content">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 搜索文档..." oninput="filterDocs()">
+            </div>
+            
+            <div class="doc-list-header">
+                <h2 id="currentCategory">📋 全部文档</h2>
+                <span class="doc-count" id="docCount">0 个文档</span>
+            </div>
+            
+            <div id="docList" class="doc-list">
+                <!-- 动态生成 -->
+            </div>
+        </main>
+    </div>
+    
+    <div class="modal" id="docModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">文档标题</h2>
+                <div class="modal-actions">
+                    <button class="action-btn" onclick="copyContent()">📋 复制</button>
+                    <button class="close-btn" onclick="closeModal()">×</button>
+                </div>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- 文档内容 -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

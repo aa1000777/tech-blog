@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Blog - 小</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header class="mobile-header">
+        <a href="../" class="back-btn" style="color: var(--text); text-decoration: none; font-size: 1.5rem;">←</a>
+        <div class="logo">📝 Tech Blog</div>
+        <div style="width: 40px;"></div>
+    </header>
+    
+    <main class="content" style="padding-top: 70px;">
+        <div class="doc-card" style="margin-bottom: 1rem; border-left: 3px solid var(--primary);">
+            <h3>📋 项目信息</h3>
+            <div class="doc-meta">
+                <span>📝 Node.js</span>
+                <span>🎨 Express</span>
+                <span>📖 Markdown</span>
+            </div>
+            <div class="doc-preview" style="margin-top: 0.5rem;">
+                基于 Node.js + Express 的静态博客系统，支持 Markdown 文章渲染和代码高亮。
+            </div>
+        </div>
+        
+        <h3 style="margin: 1rem 0;">⚙️ 技术栈</h3>
+        <div class="doc-list">
+            <div class="doc-card">
+                <h3>🚀 Express</h3>
+                <div class="doc-preview">Node.js Web 框架</div>
+            </div>
+            <div class="doc-card">
+                <h3>📝 Marked</h3>
+                <div class="doc-preview">Markdown 解析</div>
+            </div>
+            <div class="doc-card">
+                <h3>🎨 Highlight.js</h3>
+                <div class="doc-preview">代码语法高亮</div>
+            </div>
+        </div>
+        
+        <h3 style="margin: 1rem 0;">📂 目录结构</h3>
+        <div class="doc-card">
+            <pre style="font-size: 0.7rem; overflow-x: auto; white-space: pre-wrap;">
+tech-blog/
+├── server.js      # 主服务器
+├── package.json   # 依赖配置
+├── public/         # 静态资源
+├── css/           # 样式文件
+├── js/            # 脚本文件
+└── posts/         # Markdown 文章
+            </pre>
+        </div>
+        
+        <h3 style="margin: 1rem 0;">🚀 启动命令</h3>
+        <div class="doc-card">
+            <pre style="font-size: 0.85rem;">
+npm install
+node server.js
+            </pre>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AndroidScreenMirror - 小</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header class="mobile-header">
+        <a href="../" class="back-btn" style="color: var(--text); text-decoration: none; font-size: 1.5rem;">←</a>
+        <div class="logo">📱 AndroidScreenMirror</div>
+        <div style="width: 40px;"></div>
+    </header>
+    
+    <main class="content" style="padding-top: 70px;">
+        <div class="doc-card" style="margin-bottom: 1rem; border-left: 3px solid #2ecc71;">
+            <h3>📋 项目信息</h3>
+            <div class="doc-meta">
+                <span>📁 Android</span>
+                <span>📱 投屏</span>
+                <span>🔧 维护中</span>
+            </div>
+            <div class="doc-preview" style="margin-top: 0.5rem;">
+                安卓屏幕镜像项目，支持WiFi P2P/TCP/UDP，实现手机到Pad的实时投屏和触摸反控功能。
+            </div>
+        </div>
+        
+        <h3 style="margin: 1rem 0;">📂 核心文件结构</h3>
+        <div class="doc-card">
+            <pre style="font-size: 0.7rem; overflow-x: auto; white-space: pre-wrap; word-break: break-all;">
+app/src/main/java/com/example/screenmirror/
+├── MainActivity.java          # 主界面，选择设备角色
+├── SenderActivity.java        # 发送端（采集+编码+传输）
+├── ReceiverActivity.java      # 接收端（接收+解码+渲染）
+├── ScreenCaptureService.java  # 屏幕录制服务
+├── WifiP2pService.java      # WiFi P2P服务
+├── NetworkService.java       # 网络传输服务
+├── Constants.java            # 常量定义
+├── RtpPacketizer.java        # RTP打包器
+├── LowLatencyNetwork.java    # 低延迟网络传输核心
+└── TouchEventSerializer.java # 触摸事件序列化
+            </pre>
+        </div>
+        
+        <h3 style="margin: 1rem 0;">⚙️ 核心技术</h3>
+        <div class="doc-list">
+            <div class="doc-card">
+                <h3>🎯 屏幕采集</h3>
+                <div class="doc-preview">MediaProjection API + VirtualDisplay</div>
+            </div>
+            <div class="doc-card">
+                <h3>🎬 视频编码</h3>
+                <div class="doc-preview">MediaCodec H.264硬编码，低延迟优化</div>
+            </div>
+            <div class="doc-card">
+                <h3>🌐 网络传输</h3>
+                <div class="doc-preview">TCP/UDP/WiFi P2P 三种模式，支持优先级队列</div>
+            </div>
+            <div class="doc-card">
+                <h3>👆 触摸反控</h3>
+                <div class="doc-preview">TouchEventSerializer 紧凑二进制协议</div>
+            </div>
+        </div>
+        
+        <h3 style="margin: 1rem 0;">📖 详细文档</h3>
+        <div class="doc-card markdown-body">
+            <h2>功能特性</h2>
+            <ol>
+                <li><strong>屏幕采集</strong>：使用MediaProjection API捕获屏幕内容</li>
+                <li><strong>视频编码</strong>：使用MediaCodec进行H.264硬编码</li>
+                <li><strong>网络传输</strong>：支持TCP和UDP协议传输视频流</li>
+                <li><strong>解码渲染</strong>：接收端解码并显示视频流</li>
+                <li><strong>触摸反控</strong>：Pad端触摸控制手机端操作</li>
+                <li><strong>双连接模式</strong>：WiFi P2P直连和局域网连接</li>
+            </ol>
+            
+            <h2>低延迟优化</h2>
+            <ul>
+                <li>优先级队列：触摸事件 > 关键帧 > 普通帧</li>
+                <li>RTP打包：单包/FU-A分片模式</li>
+                <li>前向纠错(FEC)：20%冗余抗丢包</li>
+                <li>Android Q+ 低延迟编码模式 (KEY_LATENCY)</li>
+            </ul>
+            
+            <h2>编译要求</h2>
+            <ul>
+                <li>Android Studio 2022.3.1+</li>
+                <li>Android SDK 33+</li>
+                <li>Java 8+</li>
+                <li>两台Android 5.0+ 设备</li>
+            </ul>
+        </div>
+    </main>
+</body>
+</html>

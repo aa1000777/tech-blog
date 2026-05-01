@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPN - 小</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header class="mobile-header">
+        <a href="../" class="back-btn" style="color: var(--text); text-decoration: none; font-size: 1.5rem;">←</a>
+        <div class="logo">🔒 VPN</div>
+        <div style="width: 40px;"></div>
+    </header>
+    
+    <main class="content" style="padding-top: 70px;">
+        <div class="doc-card" style="margin-bottom: 1rem; border-left: 3px solid var(--accent);">
+            <h3>📋 项目信息</h3>
+            <div class="doc-meta">
+                <span>🔒 WireGuard</span>
+                <span>🛡️ 安全上网</span>
+                <span>📡 UDP:5337</span>
+            </div>
+            <div class="doc-preview" style="margin-top: 0.5rem;">
+                WireGuard VPN 配置文件，用于安全稳定的科学上网。支持多设备同时在线。
+            </div>
+        </div>
+        
+        <h3 style="margin: 1rem 0;">📂 配置文件列表</h3>
+        <div class="doc-list">
+            <div class="doc-card">
+                <h3>📄 client.conf</h3>
+                <div class="doc-preview">基础配置文件，适合大多数设备</div>
+            </div>
+            <div class="doc-card">
+                <h3>📄 client-fixed.conf</h3>
+                <div class="doc-preview">固定IP配置</div>
+            </div>
+            <div class="doc-card">
+                <h3>📄 client-full.conf</h3>
+                <div class="doc-preview">完整功能配置</div>
+            </div>
+            <div class="doc-card">
+                <h3>📄 client-alt-ip.conf</h3>
+                <div class="doc-preview">备用IP配置</div>
+            </div>
+        </div>
+        
+        <h3 style="margin: 1rem 0;">⚙️ 当前配置</h3>
+        <div class="doc-card">
+            <pre style="font-size: 0.75rem; overflow-x: auto;">
+[Interface]
+PrivateKey = **********
+Address = 10.0.0.2/24
+DNS = 8.8.8.8, 1.1.1.1
+
+[Peer]
+PublicKey = **********
+Endpoint = 43.134.30.100:5337
+AllowedIPs = 0.0.0.0/0
+PersistentKeepalive = 25
+            </pre>
+        </div>
+        
+        <h3 style="margin: 1rem 0;">🔧 常用命令</h3>
+        <div class="doc-card markdown-body">
+            <h3>连接VPN</h3>
+            <pre>sudo wg-quick up client</pre>
+            
+            <h3>断开VPN</h3>
+            <pre>sudo wg-quick down client</pre>
+            
+            <h3>检查状态</h3>
+            <pre>sudo wg show</pre>
+        </div>
+        
+        <h3 style="margin: 1rem 0;">📝 端口信息</h3>
+        <div class="doc-list">
+            <div class="doc-card">
+                <h3>🌐 当前端口</h3>
+                <div class="doc-preview">UDP 5337</div>
+            </div>
+            <div class="doc-card">
+                <h3>📡 可用端口</h3>
+                <div class="doc-preview">53, 443, 8080, 5353, 5334, 5335 等</div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
