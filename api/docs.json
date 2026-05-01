@@ -1,0 +1,15 @@
+{
+    "docs": [
+        {"id": "AGENTS", "title": "⚙️ AGENTS.md", "category": "core", "preview": "工作空间的核心配置文档，包含工具使用策略、内存管理、群聊行为准则等", "path": "./docs/AGENTS.md", "tags": ["配置"]},
+        {"id": "IDENTITY", "title": "⚙️ IDENTITY.md", "category": "core", "preview": "身份配置文档", "path": "./docs/IDENTITY.md", "tags": ["配置"]},
+        {"id": "USER", "title": "⚙️ USER.md", "category": "core", "preview": "用户信息配置", "path": "./docs/USER.md", "tags": ["配置"]},
+        {"id": "SOUL", "title": "⚙️ SOUL.md", "category": "core", "preview": "核心原则、行为准则、专长、工作目录结构", "path": "./docs/SOUL.md", "tags": ["配置"]},
+        {"id": "MEMORY", "title": "🧠 MEMORY.md", "category": "memory", "preview": "长期记忆文档", "path": "./docs/MEMORY.md", "tags": ["记忆"]},
+        {"id": "TOOLS", "title": "⚙️ TOOLS.md", "category": "core", "preview": "本地工具配置备注，如SSH、TTS、摄像头等", "path": "./docs/TOOLS.md", "tags": ["配置"]},
+        {"id": "HEARTBEAT", "title": "⚙️ HEARTBEAT.md", "category": "core", "preview": "心跳检查清单配置", "path": "./docs/HEARTBEAT.md", "tags": ["配置"]},
+        {"id": "memory-2026-03-01", "title": "🧠 2026-03-01", "category": "memory", "preview": "深入学习WireGuard配置、多设备同时在线、MTU调优、DNS优化", "path": "./memory/2026-03-01.md", "tags": ["记忆"]},
+        {"id": "memory-2026-04-10", "title": "🧠 2026-04-10", "category": "memory", "preview": "端口封锁的应对策略、非标准端口选择、规避策略", "path": "./memory/2026-04-10.md", "tags": ["记忆"]},
+        {"id": "asm-readme", "title": "📱 AndroidScreenMirror", "category": "project", "preview": "安卓屏幕镜像项目，支持WiFi P2P/TCP/UDP，低延迟优化", "path": "./projects/AndroidScreenMirror/", "tags": ["Android", "投屏"]},
+        {"id": "vpn", "title": "🔒 VPN", "category": "project", "preview": "WireGuard VPN 配置文件，用于安全稳定的科学上网", "path": "./projects/vpn/", "tags": ["WireGuard", "VPN"]}
+    ]
+}
